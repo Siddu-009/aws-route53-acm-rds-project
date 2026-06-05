@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siddu Store - E-Commerce</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+header{
+    background:#131921;
+    color:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.search-box{
+    flex:1;
+    margin:0 20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+}
+
+.cart{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:linear-gradient(to right,#232f3e,#37475a);
+    color:white;
+}
+
+.hero h1{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.product{
+    background:white;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+    padding:15px;
+    text-align:center;
+}
+
+.product img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.product h3{
+    margin:15px 0;
+}
+
+.price{
+    color:green;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.btn{
+    width:100%;
+    padding:10px;
+    background:#ff9900;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.btn:hover{
+    background:#e68a00;
+}
+
+.section{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+}
+
+.section h2{
+    margin-bottom:15px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+.order-success{
+    text-align:center;
+    color:green;
+    font-size:24px;
+    margin-top:20px;
+}
+
+footer{
+    background:#131921;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🛒 Siddu Store</div>
+
+<div class="search-box">
+<input
+type="text"
+id="search"
+placeholder="Search products..."
+onkeyup="searchProducts()">
+</div>
+
+<div class="cart">
+🛒 Cart:
+<span id="cartCount">0</span>
+</div>
+
+</header>
+
+<section class="hero">
+<h1>Welcome To Siddu Store</h1>
+<p>Search, Add To Cart, Checkout & Payment</p>
+</section>
+
+<section class="products" id="products">
+
+<div class="product">
+<img src="https://picsum.photos/300/220?1">
+<h3>iPhone 15 Pro</h3>
+<p class="price">₹99,999</p>
+<button class="btn"
+onclick="addToCart('iPhone 15 Pro',99999)">
+Add To Cart
+</button>
+</div>
+
+<div class="product">
+<img src="https://picsum.photos/300/220?2">
+<h3>MacBook Pro</h3>
+<p class="price">₹149,999</p>
+<button class="btn"
+onclick="addToCart('MacBook Pro',149999)">
+Add To Cart
+</button>
+</div>
+
+<div class="product">
+<img src="https://picsum.photos/300/220?3">
+<h3>Nike Shoes</h3>
+<p class="price">₹5,999</p>
+<button class="btn"
+onclick="addToCart('Nike Shoes',5999)">
+Add To Cart
+</button>
+</div>
+
+<div class="product">
+<img src="https://picsum.photos/300/220?4">
+<h3>Samsung Galaxy S25</h3>
+<p class="price">₹89,999</p>
+<button class="btn"
+onclick="addToCart('Samsung Galaxy',89999)">
+Add To Cart
+</button>
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Checkout</h2>
+
+<form id="checkoutForm">
+
+<input
+type="text"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+placeholder="Email Address"
+required>
+
+<input
+type="tel"
+placeholder="Phone Number"
+required>
+
+<textarea
+placeholder="Delivery Address"
+required></textarea>
+
+<select required>
+<option value="">
+Select Payment Method
+</option>
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>Net Banking</option>
+</select>
+
+<button
+type="submit"
+class="btn">
+Proceed To Payment </button>
+
+</form>
+
+<div id="successMsg"></div>
+
+</section>
+
+<footer>
+© 2026 Siddu Store | AWS DevOps Project
+</footer>
+
+<script>
+
+let cart=[];
+
+function addToCart(name,price){
+
+cart.push({
+name:name,
+price:price
+});
+
+document.getElementById("cartCount")
+.innerText=cart.length;
+
+alert(name + " added to cart");
+
+}
+
+function searchProducts(){
+
+let input=document
+.getElementById("search")
+.value
+.toLowerCase();
+
+let products=document
+.querySelectorAll(".product");
+
+products.forEach(product=>{
+
+let text=product
+.innerText
+.toLowerCase();
+
+if(text.includes(input)){
+product.style.display="block";
+}else{
+product.style.display="none";
+}
+
+});
+
+}
+
+document
+.getElementById("checkoutForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+if(cart.length===0){
+
+alert("Please add products to cart first");
+
+return;
+
+}
+
+document
+.getElementById("successMsg")
+.innerHTML=`
+<div class="order-success">
+✅ Payment Successful<br><br>
+Order ID :
+ORD${Math.floor(Math.random()*100000)}
+<br><br>
+Confirmation Email Sent Successfully.
+</div>
+`;
+
+cart=[];
+
+document
+.getElementById("cartCount")
+.innerText=0;
+
+});
+
+</script>
+
+</body>
+</html>
+
