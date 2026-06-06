@@ -31,21 +31,9 @@ RDS MySQL
 ```
 
 ---
-# AWS Route53 + ACM + ALB + EC2 + RDS MySQL Project
-
 ## Objective
 
 Deploy a website using a custom domain with HTTPS using AWS Route53, ACM, Application Load Balancer, EC2, and RDS MySQL.
-
----
-
-# Architecture
-
-Internet
-→ Route53
-→ Application Load Balancer
-→ EC2 (Nginx)
-→ RDS MySQL
 
 ---
 
